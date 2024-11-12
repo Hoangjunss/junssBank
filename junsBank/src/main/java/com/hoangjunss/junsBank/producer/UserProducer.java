@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 public class UserProducer {
 
     private static final String TOPIC_CREATE_USER = "create-user";
+    private static final String TOPIC_USER_CHANGE = "change-user";
 
 
     @Autowired
@@ -18,6 +19,9 @@ public class UserProducer {
     public void sendCreateUserEvent(String email) {
         kafkaTemplate.send(TOPIC_CREATE_USER, email);
     }
-
+    // Gửi sự kiện thay đổi mật khẩu chung cho cả cập nhật tài khoản và lịch sử
+    public void sendPasswordChangeEvent(String identificationNumber) {
+        kafkaTemplate.send(TOPIC_USER_CHANGE, identificationNumber);
+    }
 
 }
