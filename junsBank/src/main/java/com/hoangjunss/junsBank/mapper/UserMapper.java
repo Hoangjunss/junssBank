@@ -1,6 +1,7 @@
 package com.hoangjunss.junsBank.mapper;
 
 import com.hoangjunss.junsBank.dto.user.UserCreateDTO;
+import com.hoangjunss.junsBank.dto.user.UserDTO;
 import com.hoangjunss.junsBank.entity.user.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,5 +12,9 @@ public class UserMapper {
     public User createToEntity(UserCreateDTO userCreateDTO){
         User user=mapper.map(userCreateDTO,User.class);
         return user;
+    }
+    public UserDTO toDTO(User user){
+        UserDTO userDTO=mapper.map(user,UserDTO.class);
+        return userDTO;
     }
 }

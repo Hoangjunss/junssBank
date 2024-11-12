@@ -6,6 +6,7 @@ import com.hoangjunss.junsBank.entity.user.User;
 import com.hoangjunss.junsBank.mapper.AccountMapper;
 import com.hoangjunss.junsBank.service.User.AccountService;
 import com.hoangjunss.junsBank.service.User.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 
@@ -17,6 +18,7 @@ public class AccountEventListener {
     @Autowired
     private UserService userService;
     @KafkaListener(topics = "create-user", groupId = "my-group")
+    @Transactional
     public void consumeCreateUserEvent(UserCreateDTO userCreateDTO) {
         System.out.println("Create account: " + userCreateDTO.toString());
 
