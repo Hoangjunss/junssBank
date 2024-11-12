@@ -90,5 +90,13 @@ public class UserApplicationService {
         }
         return AuthenticationDTO.builder().token(jwtToken).refreshToken(refreshToken).build();
     }
+    @Transactional
+    public void changePassword(String oldPassword, String newPassword){
+        accountService.changePassword(oldPassword, newPassword);
+    }
+    @Transactional
+    public void verificationChangePassword(String verificationCode){
+        accountService.verifyPasswordChange(verificationCode);
+    }
 
 }

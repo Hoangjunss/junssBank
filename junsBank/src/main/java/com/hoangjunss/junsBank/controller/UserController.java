@@ -46,5 +46,20 @@ public class UserController {
 
         return ResponseEntity.ok(authenticationResponse);
     }
+    @PutMapping("/change")
+    public ResponseEntity<String> change(@RequestParam String oldPassword,
+                                         @RequestParam String newPassword,
+            HttpServletRequest request) {
+       userApplicationService.changePassword(oldPassword,newPassword);
+        return ResponseEntity.ok("success");
+    }
+    @PostMapping("/verifi_password")
+    public ResponseEntity<String> verifiPassword(@RequestParam String verificode,
+
+             HttpServletRequest request) {
+       userApplicationService.verificationChangePassword(verificode);
+
+        return ResponseEntity.ok("success");
+    }
 
 }
