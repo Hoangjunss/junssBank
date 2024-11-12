@@ -19,14 +19,9 @@ public class AccountTransactionEventListener {
     private UserService userService;
     @KafkaListener(topics = "create-user", groupId = "my-group")
     @Transactional
-    public void consumeCreateUserEvent(UserCreateDTO userCreateDTO) {
-        System.out.println("Create accountTRansaction: " + userCreateDTO.toString());
+    public void consumeCreateUserEvent(String identificationNumber) {
+        System.out.println("Create accountTRansaction: " +  identificationNumber);
 
-        AccountTransaction accountTransaction=accountTransactionMapper.createToEntity(userCreateDTO);
-
-        User user=userService.findByIdentificationNumber(userCreateDTO.getIdentificationNumber());
-        accountTransaction.setUser(user);
-
-       accountTransactionService.createAccountTransaction(accountTransaction);
+       accountTransactionService.createAccountTransaction(identificationNumber);
     }
 }

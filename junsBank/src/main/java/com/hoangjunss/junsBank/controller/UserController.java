@@ -3,15 +3,13 @@ package com.hoangjunss.junsBank.controller;
 import com.hoangjunss.junsBank.application.UserApplicationService;
 import com.hoangjunss.junsBank.dto.user.UserCreateDTO;
 import com.hoangjunss.junsBank.dto.user.UserDTO;
+import com.hoangjunss.junsBank.entity.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequestMapping("/user")
@@ -20,13 +18,23 @@ public class UserController {
     @Autowired
     private UserApplicationService userApplicationService;
     @PostMapping("/signup")
-    public ResponseEntity<UserDTO> registration(@RequestBody UserCreateDTO createUserRequest,
+    public ResponseEntity<String> registration(@RequestBody UserCreateDTO createUserRequest,
                                                 HttpServletRequest request) {
         log.info("User registration request: {}", createUserRequest.toString());
 
-        UserDTO registeredUser = userApplicationService.createUser(createUserRequest);
+        userApplicationService.createUser(createUserRequest);
 
 
-        return new ResponseEntity<>(registeredUser, HttpStatus.CREATED);
+        return new ResponseEntity<>("success", HttpStatus.CREATED);
+    }
+    @PostMapping("/verifi")
+    public ResponseEntity<UserDTO> verifi(@RequestParam String email,
+                                         @RequestParam String verifiCode,
+                                               HttpServletRequest request) {
+        log.info("User verifi request: {}", verifiCode);
+
+        UserDTO user=userApplicationService.verification(email,verifiCode);
+
+        return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
 }

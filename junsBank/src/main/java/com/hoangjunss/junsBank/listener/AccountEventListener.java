@@ -7,9 +7,10 @@ import com.hoangjunss.junsBank.mapper.AccountMapper;
 import com.hoangjunss.junsBank.service.User.AccountService;
 import com.hoangjunss.junsBank.service.User.UserService;
 import jakarta.transaction.Transactional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
-
+@Slf4j
 public class AccountEventListener {
     @Autowired
     private AccountService accountService;
@@ -18,16 +19,11 @@ public class AccountEventListener {
     @Autowired
     private UserService userService;
     @KafkaListener(topics = "create-user", groupId = "my-group")
-    @Transactional
-    public void consumeCreateUserEvent(UserCreateDTO userCreateDTO) {
-        System.out.println("Create account: " + userCreateDTO.toString());
 
-        Account account=accountMapper.createToEntity(userCreateDTO);
+    public void consumeCreateUserEvent(String identificationNumber) {
+        log.info("Create account: " + identificationNumber);
 
-        User user=userService.findByIdentificationNumber(userCreateDTO.getIdentificationNumber());
-        account.setUser(user);
+        accountService.createAccount(identificationNumber);
 
-        accountService.createAccount(account);
-        // Thực hiện các xử lý cần thiết với message
     }
 }

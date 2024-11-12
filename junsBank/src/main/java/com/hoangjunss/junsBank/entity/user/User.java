@@ -35,6 +35,8 @@ public class User implements UserDetails {
     @Column(name = "status_user", nullable = false)
     private boolean status;
 
+    @Column(name = "email", nullable = false, unique = true)
+    private String email;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
