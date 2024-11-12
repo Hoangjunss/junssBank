@@ -35,10 +35,11 @@ public class Transaction {
     @Column(name = "transaction_type", nullable = false)
     private String transactionType; // Loại giao dịch (CHUYỂN TIỀN, NẠP TIỀN, RÚT TIỀN)
 
-    @Enumerated(EnumType.STRING)
+
     @Column(name = "status", nullable = false)
     private String status; // Trạng thái giao dịch (PENDING, COMPLETED, FAILED)
 
     @Column(name = "transaction_date", nullable = false)
     private LocalDateTime transactionDate; // Ngày giờ giao dịch'
+
 }

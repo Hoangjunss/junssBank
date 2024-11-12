@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Table(name = "user")
 public class User {
     @Id
-    private Long id;
+    private Integer id;
 
     @Column(name = "full_name", nullable = false)
     private String fullName;
@@ -31,8 +31,6 @@ public class User {
     private String identificationNumber;
     @Column(name = "status_user", nullable = false)
     private boolean status;
-    @OneToOne
-    @JoinColumn
-    private Account account;
+
 
 }
