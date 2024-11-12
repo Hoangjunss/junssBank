@@ -1,6 +1,8 @@
 package com.hoangjunss.junsBank.controller;
 
 import com.hoangjunss.junsBank.application.UserApplicationService;
+import com.hoangjunss.junsBank.dto.user.AccountDTO;
+import com.hoangjunss.junsBank.dto.user.AuthenticationDTO;
 import com.hoangjunss.junsBank.dto.user.UserCreateDTO;
 import com.hoangjunss.junsBank.dto.user.UserDTO;
 import com.hoangjunss.junsBank.entity.user.User;
@@ -37,4 +39,12 @@ public class UserController {
 
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
+    @PostMapping("/signin")
+    public ResponseEntity<AuthenticationDTO> signIn(
+            @RequestBody AccountDTO signInRequest, HttpServletRequest request) {
+        AuthenticationDTO authenticationResponse = userApplicationService.login(signInRequest);
+
+        return ResponseEntity.ok(authenticationResponse);
+    }
+
 }

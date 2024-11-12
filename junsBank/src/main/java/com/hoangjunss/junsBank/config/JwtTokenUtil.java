@@ -130,6 +130,10 @@ public class JwtTokenUtil {
     public boolean isTokenExpired( String token) {
         return extractClaims( token, Claims::getExpiration).before(new Date());
     }
+    public Date getExpirationDate(String token) {
+        return extractClaims(token, Claims::getExpiration);
+    }
+
 
 
 

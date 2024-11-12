@@ -8,5 +8,7 @@ public class RedisContants {
     public static final String VERIFICATION_CODE_KEY = "verification:string";
     public static final String USER_VERIFI_KEY = "users_verifi:object";
     public static final String VERIFICATION_PASSWORD = "useverificationrs_password:string";
+    public static final String WHITE_LIST_PASSWORD = "white_list_token:object";
+
 
 }
