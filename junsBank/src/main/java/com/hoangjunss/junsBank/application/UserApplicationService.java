@@ -2,6 +2,7 @@ package com.hoangjunss.junsBank.application;
 
 
 import com.hoangjunss.junsBank.dto.user.UserCreateDTO;
+import com.hoangjunss.junsBank.dto.user.UserDTO;
 import com.hoangjunss.junsBank.entity.user.User;
 import com.hoangjunss.junsBank.mapper.UserMapper;
 import com.hoangjunss.junsBank.produce.UserProducer;
@@ -21,14 +22,15 @@ public class UserApplicationService {
     @Autowired
     private UserProducer userProducer; // Producer để gửi sự kiện Kafka
 
-    public void createUser(UserCreateDTO userCreateDTO) {
+    public UserDTO createUser(UserCreateDTO userCreateDTO) {
         // Chuyển đổi từ DTO sang Entity
         User user = userMapper.createToEntity(userCreateDTO);
 
         // Lưu vào cơ sở dữ liệu qua UserService
-        userService.saveUser(user);
+       User userSave= userService.saveUser(user);
 
         // Gửi sự kiện đến Kafka
         userProducer.sendCreateUserEvent(userCreateDTO);
+        return userMapper.toDTO(userSave);
     }
 }
