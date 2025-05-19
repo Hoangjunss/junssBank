@@ -1,4 +1,4 @@
-package com.hoangjunss.junsBank.dto.user;
+package com.hoangjunss.junsBank.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

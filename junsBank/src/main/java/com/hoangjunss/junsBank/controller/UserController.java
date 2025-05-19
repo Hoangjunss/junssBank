@@ -1,11 +1,10 @@
 package com.hoangjunss.junsBank.controller;
 
 import com.hoangjunss.junsBank.application.UserApplicationService;
-import com.hoangjunss.junsBank.dto.user.AccountDTO;
-import com.hoangjunss.junsBank.dto.user.AuthenticationDTO;
+import com.hoangjunss.junsBank.dto.AccountDTO;
+import com.hoangjunss.junsBank.dto.AuthenticationDTO;
 import com.hoangjunss.junsBank.dto.user.UserCreateDTO;
 import com.hoangjunss.junsBank.dto.user.UserDTO;
-import com.hoangjunss.junsBank.entity.user.User;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
