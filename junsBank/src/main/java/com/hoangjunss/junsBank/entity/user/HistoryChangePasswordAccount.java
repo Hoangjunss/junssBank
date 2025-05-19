@@ -17,12 +17,16 @@ import java.time.LocalDate;
 public class HistoryChangePasswordAccount {
     @Id
     private Integer id;
-    @Column(name = "old_paswword")
+
+    @Column(name = "old_password")
     private String oldPassword;
+
     @Column(name = "new_password", nullable = false)
     private String newPassword;
+
     @Column(name = "change_date", nullable = false)
     private LocalDate changeDate;
+
     @ManyToOne
     @JoinColumn
     private User user;

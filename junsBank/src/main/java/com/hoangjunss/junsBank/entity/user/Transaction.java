@@ -20,26 +20,25 @@ public class Transaction {
     private Integer id;
 
     @Column(name = "transaction_id", nullable = false, unique = true)
-    private String transactionId; // Mã giao dịch, duy nhất cho mỗi giao dịch
+    private String transactionId;
 
     @Column(name = "from_account")
-    private String fromAccount; // Tài khoản gửi (có thể null nếu là nạp tiền)
-
+    private String fromAccount;
     @Column(name = "to_account")
-    private String toAccount; // Tài khoản nhận (có thể null nếu là rút tiền)
+    private String toAccount;
 
     @Column(name = "amount", nullable = false)
-    private double amount; // Số tiền giao dịch
+    private double amount;
 
 
     @Column(name = "transaction_type", nullable = false)
-    private String transactionType; // Loại giao dịch (CHUYỂN TIỀN, NẠP TIỀN, RÚT TIỀN)
+    private String transactionType;
 
 
     @Column(name = "status", nullable = false)
-    private String status; // Trạng thái giao dịch (PENDING, COMPLETED, FAILED)
+    private String status;
 
     @Column(name = "transaction_date", nullable = false)
-    private LocalDateTime transactionDate; // Ngày giờ giao dịch'
+    private LocalDateTime transactionDate;
 
 }

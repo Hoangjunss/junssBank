@@ -17,13 +17,17 @@ import java.time.LocalDate;
 public class HistoryChangeStatusTransaction {
     @Id
     private Integer id;
+
     @ManyToOne
     @JoinColumn
     private Transaction transaction;
+
     @Column(name = "old_status")
-   private boolean oldStatus;
+    private boolean oldStatus;
+
     @Column(name = "new_status", nullable = false)
-   private boolean newStatus;
+    private boolean newStatus;
+
     @Column(name = "update_date", nullable = false)
-   private LocalDate updateDate;
+    private LocalDate updateDate;
 }
