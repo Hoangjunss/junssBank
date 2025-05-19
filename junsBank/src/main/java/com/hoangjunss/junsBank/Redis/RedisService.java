@@ -1,4 +1,4 @@
-package com.hoangjunss.junsBank.service.Redis;
+package com.hoangjunss.junsBank.Redis;
 
 
 import org.springframework.stereotype.Service;

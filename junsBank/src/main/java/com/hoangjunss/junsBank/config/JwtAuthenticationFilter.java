@@ -2,8 +2,8 @@ package com.hoangjunss.junsBank.config;
 
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hoangjunss.junsBank.contants.RedisContants;
-import com.hoangjunss.junsBank.service.Redis.RedisService;
+//import com.hoangjunss.junsBank.constants.RedisContants;
+import com.hoangjunss.junsBank.Redis.RedisService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -51,28 +51,28 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         userEmail = jwtTokenUtil.extractUsernameToken(jwtToken);
 
         // Kiểm tra token từ Redis
-        String tokenKey = RedisContants.WHITE_LIST_PASSWORD + jwtToken;
+        /*String tokenKey = RedisContants.WHITE_LIST_PASSWORD + jwtToken;
         ObjectMapper objectMapper = new ObjectMapper();
-        UserDetails userDetails;
+        UserDetails userDetails;*/
 
         try {
             // Lấy user từ Redis nếu có
-            String userJson = (String) redisService.get(tokenKey);
+           /* String userJson = (String) redisService.get(tokenKey);
             if (userJson != null) {
                 // Chuyển đổi JSON thành `UserDetails`
                 userDetails = objectMapper.readValue(userJson, UserDetails.class);
                 log.info("User details retrieved from Redis for token: {}", jwtToken);
-            } else {
+            } else {*/
                 // Nếu không tìm thấy trong Redis, kiểm tra trong DB
                 if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                    userDetails = ourUserDetailsService.loadUserByUsername(userEmail);
+                     UserDetails userDetails = ourUserDetailsService.loadUserByUsername(userEmail);
 
                     // Nếu token hợp lệ, lưu vào Redis để dùng cho lần tiếp theo
                     if (jwtTokenUtil.isTokenValid(jwtToken, userDetails)) {
                         long ttl = jwtTokenUtil.getExpirationDate(jwtToken).getTime() - System.currentTimeMillis();
-                        String userJsonToCache = objectMapper.writeValueAsString(userDetails);
+                       /* String userJsonToCache = objectMapper.writeValueAsString(userDetails);
                         redisService.set(tokenKey, userJsonToCache);
-                        redisService.setTimeToLive(tokenKey, ttl / 1000); // Đặt TTL bằng giây
+                        redisService.setTimeToLive(tokenKey, ttl / 1000); // Đặt TTL bằng giây*/
                     } else {
                         filterChain.doFilter(request, response);
                         return;
@@ -81,10 +81,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     filterChain.doFilter(request, response);
                     return;
                 }
-            }
+            //}
 
             // Nếu xác thực thành công, thiết lập `SecurityContext`
-            if (jwtTokenUtil.isTokenValid(jwtToken, userDetails)) {
+           /* if (jwtTokenUtil.isTokenValid(jwtToken, userDetails)) {
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
                 log.info("Role: {}", userDetails.getAuthorities().toString());
 
@@ -95,7 +95,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 securityContext.setAuthentication(token);
                 SecurityContextHolder.setContext(securityContext);
             }
-
+*/
         } catch (Exception e) {
             log.error("Error processing JWT token or Redis: {}", e.getMessage());
             filterChain.doFilter(request, response);
